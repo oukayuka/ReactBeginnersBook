@@ -1,2 +1,2 @@
 # ReactBeginnersBook
-『りあくと！ TypeScriptで始めるつらくないReact開発』のサンプルコードページ
+『りあクト！ TypeScriptで始めるつらくないReact開発』のサンプルコードページ
