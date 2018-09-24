@@ -6,7 +6,7 @@ import './App.css';
 const LIMIT = 60;
 
 interface AppState {
-  second: number;
+  timeLeft: number;
 }
 
 class App extends React.Component<{}, AppState> {
@@ -14,13 +14,13 @@ class App extends React.Component<{}, AppState> {
 
   constructor(props: {}) {
     super(props);
-    this.state = { second: LIMIT };
+    this.state = { timeLeft: LIMIT };
   }
 
-  reset = () => this.setState({ second: LIMIT });
+  reset = () => this.setState({ timeLeft: LIMIT });
 
   tick = () => {
-    this.setState({ second: this.state.second - 1 });
+    this.setState({ timeLeft: this.state.timeLeft - 1 });
   };
 
   componentDidMount = () => {
@@ -28,7 +28,7 @@ class App extends React.Component<{}, AppState> {
   };
 
   componentDidUpdate = (prevProps: {}, prevState: AppState) => {
-    if (this.state.second === 0) {
+    if (this.state.timeLeft === 0) {
       this.reset();
     }
   };
@@ -47,7 +47,7 @@ class App extends React.Component<{}, AppState> {
           <Statistic>
             <br />
             <Statistic.Label>time</Statistic.Label>
-            <Statistic.Value>{this.state.second}</Statistic.Value>
+            <Statistic.Value>{this.state.timeLeft}</Statistic.Value>
           </Statistic>
           <Card.Content>
             <Button color="red" fluid={true} onClick={this.reset}>

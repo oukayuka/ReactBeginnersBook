@@ -20,8 +20,8 @@ class CharacterList extends React.Component<CharacterListProps> {
       <>
         <Header as="h2">{school}</Header>
         <Item.Group>
-          {characters.map(c => (
-            <Item>
+          {characters.map((c, i) => (
+            <Item key={i}>
               <Icon name="user circle" size="huge" />
               <Item.Content>
                 <Item.Header>{c.name}</Item.Header>
