@@ -27,7 +27,7 @@ class App extends React.Component<{}, AppState> {
     this.timerId = setInterval(this.tick, 1000);
   };
 
-  componentDidUpdate = (prevProps: {}, prevState: AppState) => {
+  componentDidUpdate = () => {
     if (this.state.timeLeft === 0) {
       this.reset();
     }

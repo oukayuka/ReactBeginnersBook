@@ -2,6 +2,7 @@ import * as React from 'react';
 import {
   compose,
   lifecycle,
+  pure,
   setDisplayName,
   StateHandler,
   StateHandlerMap,
@@ -10,26 +11,22 @@ import {
 
 import Timer, { TimerProps } from 'components/Timer';
 
-interface LocalState {
+interface LStateProps {
   timeLeft: number;
   timerId?: NodeJS.Timer;
 }
 
-type LocalStateHandler = {
-  reset(): StateHandler<LocalState>;
-  tick(): StateHandler<LocalState>;
-  setTimerId(timerId: NodeJS.Timer): StateHandler<LocalState>;
-} & StateHandlerMap<LocalState>;
+type LStateHandlerProps = {
+  reset: () => StateHandler<LStateProps>;
+  tick: () => StateHandler<LStateProps>;
+  setTimerId: (timerId: NodeJS.Timer) => StateHandler<LStateProps>;
+} & StateHandlerMap<LStateProps>;
 
-type EnhancedTimerProps = TimerProps & LocalState & LocalStateHandler;
-
-const EnhancedTimer: React.SFC<EnhancedTimerProps> = props => (
-  <Timer {...props} />
-);
+type EnhancedTimerProps = TimerProps & LStateProps & LStateHandlerProps;
 
 const enhance = compose<EnhancedTimerProps, TimerProps>(
-  setDisplayName('Timer'),
-  withStateHandlers<LocalState, LocalStateHandler, TimerProps>(
+  setDisplayName('EnhancedTimer'),
+  withStateHandlers<LStateProps, LStateHandlerProps, TimerProps>(
     props => ({
       timeLeft: props.limit,
     }),
@@ -48,7 +45,7 @@ const enhance = compose<EnhancedTimerProps, TimerProps>(
       }),
     },
   ),
-  lifecycle<EnhancedTimerProps, LocalState>({
+  lifecycle<EnhancedTimerProps, {}>({
     componentDidMount() {
       const { setTimerId, tick } = this.props;
       setTimerId(setInterval(tick, 1000));
@@ -66,6 +63,7 @@ const enhance = compose<EnhancedTimerProps, TimerProps>(
       }
     },
   }),
+  pure,
 );
 
-export default enhance(EnhancedTimer);
+export default enhance(Timer as React.SFC<EnhancedTimerProps>);
