@@ -28,7 +28,7 @@ class App extends React.Component<{}, AppState> {
           <h1>カウンター</h1>
         </header>
         <Card>
-          <Statistic>
+          <Statistic className="number-board">
             <Statistic.Label>count</Statistic.Label>
             <Statistic.Value>{this.state.count}</Statistic.Value>
           </Statistic>

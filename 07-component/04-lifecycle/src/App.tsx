@@ -44,8 +44,7 @@ class App extends React.Component<{}, AppState> {
           <h1>タイマー</h1>
         </header>
         <Card>
-          <Statistic>
-            <br />
+          <Statistic className="number-board">
             <Statistic.Label>time</Statistic.Label>
             <Statistic.Value>{this.state.timeLeft}</Statistic.Value>
           </Statistic>
